@@ -97,8 +97,6 @@ void ordenarPares(par *lp) {
     le *aux = cauda;
     le *aux2 = cauda->ant;
     do {
-        printf("Aux1: %d\n", aux->valor);
-        printf("Aux2: %d\n", aux2->valor);
         valor1 = aux->valor;
         valor2 = aux2->valor;
         if(valor1==valor2) {
