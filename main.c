@@ -8,7 +8,8 @@ typedef struct st_no {
 } le;
 
 le *cauda;
-int contElementos;
+int contPares = 0;
+int contElementos = 0;
 int valor1;
 int valor2;
 
@@ -93,19 +94,20 @@ void inserirPar(par *lp, int valor1, int valor2) {
 }
 
 void ordenarPares(par *lp) {
-    le *aux;
-    aux = cauda;
-    while (aux != NULL) {
+    le *aux = cauda;
+    le *aux2 = cauda->ant;
+    do {
+        printf("Aux1: %d\n", aux->valor);
+        printf("Aux2: %d\n", aux2->valor);
         valor1 = aux->valor;
-        aux = aux->ant;
-        valor2 = aux->valor;
-        if (valor1 == valor2) {
+        valor2 = aux2->valor;
+        if(valor1==valor2) {
             inserirPar(lp, valor1, valor2);
+            aux2 = aux2->ant;
+        }else {
+            aux = aux->ant;
         }
-        else {
-            aux=aux->ant;
-        }
-    }
+    }while(aux2->ant != NULL);
 }
 
 void imprimir(par *lp) {
