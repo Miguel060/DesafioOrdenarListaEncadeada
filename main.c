@@ -93,26 +93,48 @@ void inserirPar(par *lp, int valor1, int valor2) {
     }
 }
 
-void ordenarPares(par *lp) {
-    le *aux = cauda;
-    le *aux2 = cauda->ant;
-    do {
-        valor1 = aux->valor;
-        valor2 = aux2->valor;
-        if(valor1==valor2) {
-            inserirPar(lp, valor1, valor2);
-            aux2 = aux2->ant;
-        }else {
-            aux = aux->ant;
+void ordenarPares(le *ld, par *lp) {
+    le *aux = ld->prox;
+    le *aux2 = aux->prox;
+    while (aux->prox != NULL) {
+        if (aux->valor == aux2->valor) {
+            inserirPar(lp, aux->valor, aux2->valor);
+            aux->valor = 0;
+            aux2->valor = 0;
+            aux = aux->prox;
+            aux2 = aux->prox;
+        } else {
+            if (aux2->prox != NULL) {
+                aux2 = aux2->prox;
+            } else {
+                aux = aux->prox;
+                aux2 = aux->prox;
+            }
         }
-    }while(aux2->ant != NULL);
+    }
 }
 
-void imprimir(par *lp) {
+void imprimirPares(par *lp) {
     par *aux;
     aux = lp;
+    int cont = 0;
+    printf("PARES:\n");
     while (aux != NULL) {
-        printf("Valor: %d,%d\n", aux->valor1, aux->valor2);
+        if (aux->valor1 != 0) {
+            printf("(%d,%d) ", aux->valor1, aux->valor2);
+            cont++;
+        }
+        aux = aux->prox;
+    }
+    printf("\n%d Pares", cont);
+    printf("\n");
+}
+
+void imprimirLista(le *ld) {
+    le *aux;
+    aux = ld->prox;
+    while (aux != NULL) {
+        printf("Valor:%d ", aux->valor);
         aux = aux->prox;
     }
     printf("\n");
@@ -141,8 +163,8 @@ int main(void) {
     inserirFim(ld, 50);
     inserirFim(ld, 10);
     inserirFim(ld, 20);
-    ordenarPares(lp);
-    imprimir(lp);
+    ordenarPares(ld, lp);
+    imprimirPares(lp);
 
     free(ld);
     return 0;
